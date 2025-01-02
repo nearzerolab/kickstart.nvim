@@ -591,6 +591,26 @@ require('lazy').setup({
         end,
       })
 
+      -- organize imports on write for golang
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = { '*.go' },
+        callback = function(args)
+          --- @diagnostic disable-next-line:deprecated
+          local params = vim.lsp.util.make_range_params(0, vim.lsp.util._get_offset_encoding(args.buf))
+          --- @diagnostic disable-next-line:inject-field
+          params.context = { only = { 'source.organizeImports' } }
+          local result = vim.lsp.buf_request_sync(args.buf, 'textDocument/codeAction', params, 5000)
+          for cid, res in pairs(result or {}) do
+            for _, r in pairs(res.result or {}) do
+              if r.edit then
+                local enc = vim.lsp.get_client_by_id(cid).offset_encoding
+                vim.lsp.util.apply_workspace_edit(r.edit, enc)
+              end
+            end
+          end
+        end,
+      })
+
       -- Change diagnostic symbols in the sign column (gutter)
       if vim.g.have_nerd_font then
         local signs = { ERROR = '', WARN = '', INFO = '', HINT = '' }
