@@ -189,9 +189,13 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- My Settings
+-- **** My Settings ****
 vim.opt.tabstop = 4
 vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { desc = 'Save Changes' })
+-- map cmdline suggestions navigation binding
+vim.cmd 'cnoremap <expr> <Up> wildmenumode() ? "<C-p>" : "<Up>"'
+vim.cmd 'cnoremap <expr> <Down> wildmenumode() ? "<C-n>" : "<Down>"'
+-- ********
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
