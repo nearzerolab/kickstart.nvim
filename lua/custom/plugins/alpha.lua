@@ -21,7 +21,7 @@ return {
     theta.buttons.val = {
       { type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
       { type = 'padding', val = 1 },
-      dashboard.button('e', '  New file', '<cmd>ene<CR>'),
+      dashboard.button('n', '  New file', '<cmd>ene<CR>'),
       dashboard.button('o', '󰈞  Old files', ':Telescope oldfiles <CR>'),
       dashboard.button('f', '󰈞  Find files', ':Telescope find_files <CR>'),
       dashboard.button('g', '󰊄  Live grep', ':Telescope live_grep <CR>'),
